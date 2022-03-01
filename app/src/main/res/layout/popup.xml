@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/layout_id"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        <RelativeLayout
+            android:padding="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enter_item"
+                android:layout_centerHorizontal="true"
+                android:textSize="18sp"
+                android:textStyle="italic" />
+
+            <EditText
+                android:id="@+id/groceryItem"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:hint="@string/hint_item" />
+            <EditText
+                android:id="@+id/groceryQty"
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/groceryItem"
+                android:layout_width="match_parent"
+                android:hint="@string/quantity_hint"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_below="@+id/groceryQty"
+                android:layout_width="match_parent"
+                android:text="@string/save_item"
+                android:textStyle="bold"
+                android:background="@color/teal_200"
+                android:layout_marginTop="15dp"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
