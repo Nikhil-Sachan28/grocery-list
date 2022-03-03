@@ -1,5 +1,6 @@
 package com.example.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.Data.DatabaseHandler;
@@ -9,10 +10,13 @@ import com.example.mygrocerylist.databinding.ActivityListBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -31,6 +35,12 @@ public class ListActivity extends AppCompatActivity {
     private DatabaseHandler db;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
+    private AlertDialog dialog;
+    private AlertDialog.Builder dialogBuilder;
+    private EditText groceryItem;
+    private EditText quantity;
+    private Button saveButton;
+    private List<Grocery> listItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +54,11 @@ public class ListActivity extends AppCompatActivity {
         binding.fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+
+                    createPopupDialog();
+
             }
         });
 
@@ -59,7 +72,8 @@ public class ListActivity extends AppCompatActivity {
         //Get items from database
         List<Grocery> groceryList = db.getAllGroceries();
         Log.d("check: ", "checking");
-        List<Grocery> listItems = new ArrayList<>();
+
+        listItems = new ArrayList<>();
 
 
         for (Grocery c: groceryList){
@@ -78,6 +92,48 @@ public class ListActivity extends AppCompatActivity {
         recyclerViewAdapter = new RecyclerViewAdapter(this, listItems);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.notifyDataSetChanged();
+
+    }
+    private void createPopupDialog(){
+        dialogBuilder= new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.popup,null);
+        groceryItem = view.findViewById(R.id.groceryItem);
+        quantity = view.findViewById(R.id.groceryQty);
+        saveButton = view.findViewById(R.id.saveButton);
+
+        dialogBuilder.setView(view);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //todo: save to db;
+
+                //todo: go to next screen;
+                if(!groceryItem.getText().toString().isEmpty()
+                        && !quantity.getText().toString().isEmpty()){
+                    Grocery grocery = new Grocery();
+
+                    String newGrocery = groceryItem.getText().toString();
+                    String newGroceryQuantity= quantity.getText().toString();
+
+                    grocery.setName(newGrocery);
+                    grocery.setQuantity(newGroceryQuantity);
+
+                    //Save to db
+                    db.addGrocery(grocery);
+                    int x= db.getGroceriesCount();
+
+
+                    listItems.add(db.getGrocery(x));
+                    recyclerViewAdapter.notifyDataSetChanged();
+                    dialog.dismiss();
+
+                }
+
+            }
+        });
 
     }
 

@@ -1,7 +1,10 @@
 package com.example.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.Data.DatabaseHandler;
+import com.example.Model.Grocery;
 import com.example.mygrocerylist.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -9,6 +12,8 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -32,18 +37,21 @@ public class MainActivity extends AppCompatActivity {
     private EditText groceryItem;
     private EditText quantity;
     private Button saveButton;
+    private DatabaseHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        db= new DatabaseHandler(this);
+        bypassActivity();
+
+
+        binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createPopupDialog();
@@ -89,23 +97,43 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //todo: save to db;
+
                 //todo: go to next screen;
-                saveGroceryToDB(view);
+                if(!groceryItem.getText().toString().isEmpty()
+                && !quantity.getText().toString().isEmpty()){
+                    saveGroceryToDB(view);
+
+                }
+
             }
         });
 
     }
     private void saveGroceryToDB(View v){
+        Grocery grocery = new Grocery();
+
+        String newGrocery = groceryItem.getText().toString();
+        String newGroceryQuantity= quantity.getText().toString();
+
+        grocery.setName(newGrocery);
+        grocery.setQuantity(newGroceryQuantity);
+
+        //Save to db
+        db.addGrocery(grocery);
+        Snackbar.make(v , "Item Saved!!", Snackbar.LENGTH_SHORT).show();
+        Log.d("Item Added Id", String.valueOf(db.getGroceriesCount()));
+
+                dialog.dismiss();
+                // start a new activity
+                startActivity(new Intent(MainActivity.this, ListActivity.class));
+
 
     }
-//    @Override
-//    public boolean onSupportNavigateUp() {
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-//        return NavigationUI.navigateUp(navController, appBarConfiguration)
-//                || super.onSupportNavigateUp();
-//    }
-
-    //NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-    //appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-    //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+    public void bypassActivity(){
+        //check if database is empty ; if not then we we will pass to the ListActivity
+        if(db.getGroceriesCount()>0){
+            startActivity(new Intent(MainActivity.this, ListActivity.class));
+            finish();
+        }
+    }
 }
