@@ -16,6 +16,7 @@
 
     <style name="Theme.MyGroceryList.NoActionBar">
         <item name="windowActionBar">false</item>
+        <item name="android:windowBackground">@drawable/splash_screen2</item>
         <item name="windowNoTitle">true</item>
     </style>
 

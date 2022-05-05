@@ -13,9 +13,12 @@
         <activity
             android:name="com.example.Activities.ListActivity"
             android:label="@string/title_activity_list"
-            android:theme="@style/Theme.MyGroceryList.NoActionBar"></activity>
+            android:theme="@style/Theme.MyGroceryList.NoActionBar">
+
+        </activity>
         <activity
             android:name="com.example.Activities.MainActivity"
+
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyGroceryList.NoActionBar">

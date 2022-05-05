@@ -12,43 +12,50 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:padding="15dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#FCF3CF"
+            android:padding="15dp">
+
             <TextView
                 android:id="@+id/name"
-                android:text="Grocery name"
-                android:textSize="18sp"
-                android:layout_width="wrap_content"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/quantity"
-                android:layout_below="@+id/name"
-                android:text="Qty"
-                android:paddingTop="5dp"
-                android:textStyle="italic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/dateAdded"
-                android:paddingTop="5dp"
-                android:text="Date: "
-                android:textStyle="italic"
-                android:layout_below="@+id/quantity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TableRow
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Grocery name"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name"
+                android:paddingTop="5dp"
+                android:text="Qty"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/dateAdded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/quantity"
+                android:paddingTop="5dp"
+                android:text="Date: "
+                android:textStyle="italic" />
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="15dp"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/editButton"
-                    android:background="@android:drawable/ic_menu_edit"
-                    android:layout_marginRight="15dp"
                     android:layout_width="30dp"
-                    android:layout_height="30dp"/>
+                    android:layout_height="30dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@android:drawable/ic_menu_edit" />
+
                 <Button
                     android:id="@+id/deleteButton"
                     android:layout_width="30dp"

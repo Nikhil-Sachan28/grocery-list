@@ -4,68 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E8DAEF"
     tools:context="com.example.Activities.DetailsActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardBackgroundColor="#ABB2B9 "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#FCF3CF"
             android:padding="5dp">
 
             <TextView
                 android:id="@+id/itemNameDet"
-                android:text="Textview"
-                android:textStyle="bold"
-                android:textSize="18sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="Textview"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/quantityDet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/itemNameDet"
                 android:text="Qty:"
-                android:textStyle="italic"
                 android:textSize="14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textStyle="italic" />
+
             <TextView
                 android:id="@+id/dateAddedDet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/quantityDet"
-                android:textSize="14sp"
-                android:textStyle="italic"
                 android:text="Date:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TableRow
-                android:layout_alignParentRight="true"
-                android:orientation="horizontal"
-                android:layout_marginTop="15dp"
+                android:textSize="14sp"
+                android:textStyle="italic" />
 
+            <TableRow
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/editButtonDet"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="15dp"
-                    android:background="@android:drawable/ic_menu_edit"
-                    />
+                    android:background="@android:drawable/ic_menu_edit" />
+
                 <Button
                     android:id="@+id/deleteButtonDet"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@android:drawable/ic_menu_delete"
-                    />
+                    android:background="@android:drawable/ic_menu_delete" />
 
             </TableRow>
-
 
 
         </RelativeLayout>

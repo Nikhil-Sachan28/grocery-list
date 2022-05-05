@@ -1,15 +1,18 @@
 package com.example.Activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.example.Data.DatabaseHandler;
 import com.example.Model.Grocery;
 import com.example.UI.RecyclerViewAdapter;
+import com.example.Util.Constants;
 import com.example.mygrocerylist.databinding.ActivityListBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,7 +30,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mygrocerylist.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class ListActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
@@ -106,6 +112,7 @@ public class ListActivity extends AppCompatActivity {
         dialog.show();
 
         saveButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 //todo: save to db;
@@ -123,10 +130,17 @@ public class ListActivity extends AppCompatActivity {
 
                     //Save to db
                     db.addGrocery(grocery);
-                    int x= db.getGroceriesCount();
+
+                    java.text.DateFormat dateFormat = java.text.DateFormat.getDateInstance();
+                    String formattedDate = dateFormat.format(new Date());
 
 
-                    listItems.add(db.getGrocery(x));
+
+
+                    grocery.setDateItemAdded("Added on : " +formattedDate);
+                    grocery.setQuantity( "Qty : " + grocery.getQuantity());
+
+                    listItems.add(grocery);
                     recyclerViewAdapter.notifyDataSetChanged();
                     dialog.dismiss();
 

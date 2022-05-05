@@ -79,7 +79,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             Grocery grocery = new Grocery();
             grocery.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(Constants.KEY_ID))));
             grocery.setName(cursor.getString(cursor.getColumnIndexOrThrow(Constants.KEY_GROCERY_ITEM)));
-            grocery.setQuantity("Qty: " + (cursor.getString(cursor.getColumnIndexOrThrow(Constants.KEY_QTY_NUMBER))));
+            grocery.setQuantity(cursor.getString(cursor.getColumnIndexOrThrow(Constants.KEY_QTY_NUMBER)));
 
             //covert timeStamp to something readable
             java.text.DateFormat dateFormat = java.text.DateFormat.getDateInstance();
